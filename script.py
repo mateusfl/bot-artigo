@@ -4,7 +4,6 @@ from bs4 import BeautifulSoup
 
 def get_artigo():
     link = "https://pt.wikipedia.org/wiki/Especial:Aleat%C3%B3ria"
-    # link = "https://pt.wikipedia.org/wiki/Enzima_conversora_da_angiotensina_2"
 
     res = requests.get(link)
     soup = BeautifulSoup(res.content, features="html.parser")
@@ -30,6 +29,11 @@ def get_artigo():
     print(f"{7*'-'} Os dados do artigo são {7*'-'}")
     for dado in dados:
         print(f"\033[32m{dado}\033[0;0m: {dados[dado]}")
+
+    if len(dados["texto"]) + len(dados["titulo"]) + len(dados["url"]) > 240:
+        print(
+            f"\033[31m (twitter) O tamanho das strings ultrapassa 240 caracteres. É recomendado escolher outro artigo. \033[0;0m"
+        )
 
     if input("Escolher o artigo? (s/n) ") == "s":
         return dados
