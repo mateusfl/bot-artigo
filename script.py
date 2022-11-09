@@ -32,10 +32,22 @@ def get_artigo():
 
     if len(dados["texto"]) + len(dados["titulo"]) + len(dados["url"]) > 240:
         print(
-            f"\033[31m (twitter) O tamanho das strings ultrapassa 240 caracteres. É recomendado escolher outro artigo. \033[0;0m"
+            "\033[31m(twitter) O tamanho das strings ultrapassa 240 caracteres. É recomendado escolher outro artigo. \033[0;0m"
         )
 
+    artigos = open("artigos.txt", "r")
+    if dados["titulo"] in artigos.read():
+        print(
+            "\033[31m(twitter) O artigo foi encontrado na lista de artigos já escolhidos. Se não quiser repetir, escolha outro artigo. \033[0;0m"
+        )
+    artigos.close()
+
     if input("Escolher o artigo? (s/n) ") == "s":
+        artigos = open("artigos.txt", "a")
+        artigos.write(f"{dados['titulo']}\n{dados['texto']}\n{dados['url']}\n\n")
+        print("\033[32mtítulo e url salvos \033[0;0m")
+        artigos.close()
+
         return dados
     else:
         return "n"

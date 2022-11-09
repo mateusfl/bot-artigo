@@ -1,10 +1,8 @@
-from script import main
 import tweepy
 from os import environ
-from time import sleep
 from dotenv import load_dotenv
+from script import main
 
-# implementar a parte do twitter
 load_dotenv()
 
 api = tweepy.Client(
